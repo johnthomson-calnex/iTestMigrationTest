@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('test_1') {
             steps {
-                bat 'python $test_to_run'
+                bat 'python %test_to_run%'
             }
         }
     }
