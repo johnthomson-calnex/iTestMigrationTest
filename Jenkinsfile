@@ -16,13 +16,13 @@ pipeline {
     stages {
         stage('test_1_t.py') {
             steps {
-                bat 'python %params.test_to_run%'
+                bat 'python %test_to_run%'
             }
         }
         stage('test_2_t2.py') {
             steps {
                 sleep 5
-                bat 'python %params.test2_to_run%'
+                bat 'python %test2_to_run%'
             }
         }
     }
