@@ -11,9 +11,9 @@ def p100set(api_path,ip, *arg):
 
 
 try:
-    #ip = os.environ["unit_ip"]
+    ip = os.environ["ip"]
     #ip = '100g-vm1'
-    ip = sys.argv[1]
+    #ip = sys.argv[1]
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_CCSA", ip)
     
 except Exception as e:
