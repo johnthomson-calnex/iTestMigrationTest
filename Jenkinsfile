@@ -7,16 +7,10 @@ pipeline {
         test2_to_run = 'PTP/t2.py'
     }
 
-    // parameters {
-    //     string(name : 'test_to_run', defaultValue : 't.py')
-    //     string(name : 'ip', defaultValue : '100g-vm1')
-    //     string(name : 'test2_to_run', defaultValue : 'PTP/t2.py')
-    // }
-
     stages {
         stage('test_1_t.py') {
             steps {
-                bat 'python %test_to_run%'
+                bat 'python %test_to_run%' 
             }
         }
         stage('test_2_t2.py') {
