@@ -15,7 +15,7 @@ try:
     #ip = '100g-vm1'
     #ip = sys.argv[1]
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_CMCC_5G", ip)
-    exit(0)
+    exit(3)
 except Exception as e:
     print(e)
     exit(1)
