@@ -18,7 +18,7 @@ try:
     #ip = sys.argv[1]
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_AES67", ip)
 
-    exit(0)
+    exit(3)
     
 except Exception as e:
     print(e)
