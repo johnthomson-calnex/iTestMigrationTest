@@ -2,18 +2,18 @@ pipeline {
     agent any
 
     environment {
-        test_to_run = 't.py'
+        test_to_run = 'set_ccsa.py'
         ip = '100g-vm1'
-        test2_to_run = 'PTP/t2.py'
+        test2_to_run = 'PTP/set_cmcc5g.py'
     }
 
     stages {
-        stage('test_1_t.py') {
+        stage('CCSA') {
             steps {
                 bat 'python %test_to_run%' 
             }
         }
-        stage('test_2_t2.py') {
+        stage('CMCC5G') {
             steps {
                 sleep 5
                 bat 'python %test2_to_run%'
