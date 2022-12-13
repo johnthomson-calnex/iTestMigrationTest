@@ -50,11 +50,6 @@ def write_to_results_xml(file_path,timestamp,msg,message = None, command = None)
     passes.attrib['Value'] = str(runtime_parameters.passes)
     fails.attrib['Value'] = str(runtime_parameters.total_fails)
 
-    try:
-        print(type(runtime_parameters.run_ids))
-        print("finished printing")
-    except:
-        pass
 
     #check for any new parameters and add to xml 
     for p in dir(runtime_parameters):
