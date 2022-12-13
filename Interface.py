@@ -26,8 +26,12 @@ class Interface():
         self.full_interface_name = interface_dict['full_interface_name']
         self.interface_type = interface_dict['interface']
         self.default_linerate = interface_dict['default_linerate']
-        self.has_fec = interface_dict['has_fec']
-        self.has_flexe = interface_dict['has_flexe']
+        self.fec_possible = interface_dict['fec_possible']
+        self.flexe_possible = interface_dict['flexe_possible']
+        if self.fec_possible:
+            self.fec_enabled = interface_dict['fec_enabled']
+        if self.flexe_possible:
+            self.flexe_enabled = interface_dict['flexe_enabled']
 
         self.t4_max = self.t4_midpoint + self.tolerance
         self.t4_min = self.t4_midpoint - self.tolerance

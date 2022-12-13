@@ -38,7 +38,7 @@ def run():
     
     for interface in all_interfaces_to_test:
         Paragon_Procedure_Library.print_information(f"Testing {interface.full_interface_name}",with_newline=True)
-        if not Paragon_Procedure_Library.setup_check_link(interface):
+        if not Paragon_Procedure_Library.setup_interface_check_link(interface):
             Paragon_Procedure_Library.print_fail(f"Failed to set up a link. Skipping {interface.full_interface_name}")
             runtime_parameters.total_fails += 1
             continue

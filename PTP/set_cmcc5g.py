@@ -1,5 +1,5 @@
 import requests,json,os,sys
-
+import time
 def argsToJSON(arg):
     i = iter(arg)
     d = dict(zip(i, i))
@@ -11,10 +11,11 @@ def p100set(api_path,ip, *arg):
 
 
 try:
-    ip = os.environ["ip"]
+    #ip = os.environ["ip"]
     #ip = '100g-vm1'
-    #ip = sys.argv[1]
+    ip = sys.argv[1]
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_CMCC_5G", ip)
+    time.sleep(10)
     
 except Exception as e:
     print(e)

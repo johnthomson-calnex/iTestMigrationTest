@@ -18,22 +18,21 @@ def write_to_results_xml(file_path,timestamp,msg,message = None, command = None)
         params = ET.SubElement(root,"Parameters")
         execution_messages = ET.SubElement(root,"ExecutionMessages")
         commands = ET.SubElement(root, "Commands")
-        
-        #[ET.SubElement(params, "Param", Param=p, Value=getattr(runtime_parameters,p)) for p in dir(runtime_parameters)]        
+             
         for p in dir(runtime_parameters):
             if p in ignore:
                 continue
             value = getattr(runtime_parameters,p)
-            # if isinstance(value,dict):
-            #     parent = ET.SubElement(params, "Param", type="dict", Name=p)                
-            #     for key in value:
-            #         ET.SubElement(parent, "ParamAttr",Key=key, Value=str(value[key]))
-            # if isinstance(value,list):
-            #     parent = ET.SubElement(params, "Param", type="list", Name=p)    
-            #     for item in value:
-            #         ET.SubElement(parent,"ParamItem", Item=item)
-            # else:
-            if not p == None and not value == None:  ET.SubElement(params, "Param", Type="str", Name=p, Value=str(value))
+            if isinstance(value,dict):
+                parent = ET.SubElement(params, "Param", type="dict", Name=p)                
+                for key in value:
+                    ET.SubElement(parent, "DictItem",Key=key, Value=str(value[key]))
+            elif isinstance(value,list):
+                parent = ET.SubElement(params, "Param", type="list", Name=p)    
+                for item in value:
+                    ET.SubElement(parent,"ListItem", Item=str(item))
+            else:
+                if not p == None and not value == None:  ET.SubElement(params, "Param", Type="str", Name=p, Value=str(value))
             
     #Update pass/fail/info parameters
     infos = params.find("./Param[@Name='infos']")
@@ -51,9 +50,13 @@ def write_to_results_xml(file_path,timestamp,msg,message = None, command = None)
     passes.attrib['Value'] = str(runtime_parameters.passes)
     fails.attrib['Value'] = str(runtime_parameters.total_fails)
 
-    
+    try:
+        print(type(runtime_parameters.run_ids))
+        print("finished printing")
+    except:
+        pass
 
-    #check for any new parameters and add to xml
+    #check for any new parameters and add to xml 
     for p in dir(runtime_parameters):
         if p in ignore:
             continue
@@ -66,7 +69,7 @@ def write_to_results_xml(file_path,timestamp,msg,message = None, command = None)
             elif isinstance(value,list):
                 list_parent = ET.SubElement(params, "Param", type="list", Name=p)    
                 for item in value:
-                    ET.SubElement(list_parent,"ParamItem", Item=item)
+                    ET.SubElement(list_parent,"ListItem", Item=str(item))
             else:
                 if not p == None and not value == None: ET.SubElement(params, "Param", Type="str", Name=p, Value=str(value))
         
@@ -77,10 +80,10 @@ def write_to_results_xml(file_path,timestamp,msg,message = None, command = None)
     #Print commads
     if command:
         cmd = ET.SubElement(commands, "Command", TimeStamp=time.strftime('[%D %H:%M:%S]',time.gmtime(command.start)))
-        type = ET.SubElement(cmd,command.type)
-        api = ET.SubElement(type, "api_endpoint")
+        verb = ET.SubElement(cmd,command.type)
+        api = ET.SubElement(verb, "api_endpoint")
         api.text = command.api_endpoint
-        resp = ET.SubElement(type, "Response")
+        resp = ET.SubElement(verb, "Response")
         resp.text = command.response.__str__()
             
     
