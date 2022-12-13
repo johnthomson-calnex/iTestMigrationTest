@@ -1,28 +1,30 @@
 import importlib,sys,os, json, requests, time
-from importlib.machinery import SourceFileLoader
 import shutil
 from datetime import datetime
-
+from Command import Session
 
 from Interface import Interface
 import Parameters.AllInterfaceInfo as interface_info
 import Parameters.RuntimeParameters as runtime_parameters
-from pathlib import Path
-_instrument = ''
 
-def load_global_parameters(parameter_file):
-    global _instrument
+from pathlib import Path
+from Utils_Library import write_to_results_xml, print_fail, print_information,print_pass,print_results
+
+
+def load_global_parameters(parameter_file : str) -> dict:
+    """
+    Takes in the parameter filename and loads the file/module and returns this
+    """
     try:
         parameter_module = importlib.import_module(f"Parameters.{parameter_file}")
         gp = parameter_module.Global_Parameters()
-        'set _instrument with the unit ip so the the p100g/p100set functions can get it'
-        _instrument = gp.unit_ip
+        
         return gp
     except Exception as e:
         print("Failed to load the parameter file correctly.")
         print(e)
 
-def combine_parameters(global_parameters_object,test_parameters_object):
+def combine_parameters(global_parameters_object : dict,test_parameters_object : dict) -> dict:
     """
     It takes two objects and returns a dictionary with all the properties of both objects
     If there are duplicate parameter names then the local parameter will override the global parameter
@@ -53,7 +55,13 @@ def combine_parameters(global_parameters_object,test_parameters_object):
 
     return all_parameters
 
-def setup_parameters(test_parameter_object):
+def setup_parameters(test_parameter_object : dict) -> dict:
+    """
+    It takes a test parameter object and combines it with the global parameters
+    
+    :param test_parameter_object: a dictionary containing the test specific parameters
+    :return: The return value is a dictionary of the combined parameters.
+    """
     try:        
         ##FIXME removal of logging can be removed after dev
         shutil.rmtree("Logging/")
@@ -66,105 +74,124 @@ def setup_parameters(test_parameter_object):
         print(e)
         exit()
     
-def setup_check_link(interface : Interface, type : str = 'set up',couple_ports : bool = True, port : str = 'Port1'):
+def setup_interface(session : Session, interface : Interface,couple_ports : bool = True, port : str = 'Port1'):
     print_information(f"Setting up {interface.full_interface_name} link...")
     success = True
 
-    if type == 'set up':
-        #couple/uncouple ports
-        p100set(f"/api/physical/port/ethernet/group/P1P2/coupled?Coupled={couple_ports}")
+    #couple/uncouple ports
+    session.put(f"/api/physical/port/ethernet/group/P1P2/coupled?Coupled={couple_ports}")
 
-        #set socket
-        socket_select = get_socket_select_socket(interface)
-        if socket_select == None:
-            print_fail(f"Failed to get the correct socket response")
-            success = False
-        else:
-            response = p100set(f"/api/physical/port/ethernet/{port}/socketselect?Socket={socket_select}")
-            if not response.ok:
-                print_fail(f"Failed to select the correct socket. ", response.json())
-                success = False
-            
-        
-        
-        # set the correct interface now. also set linerate if it is not the default linerate. 
-        # fec and flexe only appear in non default linerates so far so can handle them here
-        if success and not 'Cxp' in interface.full_interface_name:
-            endpoint = f"/api/physical/port/ethernet/{port}/{interface.interface_type}"
-            if not interface.default_linerate:
-                endpoint += f"?LineRate={interface.linerate}"
-                if interface.has_fec:
-                    endpoint += f"&Fec={interface.FecEnabled}"
-                if interface.has_flexe:
-                    endpoint += f"&FlexE={interface.FlexEEnabled}"
-                #print(f"/api/physical/port/ethernet/{port}/{interface.interface_type}?LineRate={interface.linerate}&FlexE={interface.FlexEEnabled}&Fec={interface.FecEnabled}")
-            response = p100set(endpoint)
-            if not response.ok:
-                print_fail(f"Failed to set the correct linerate. ",response.json())
-                success = False
-        
-        # allow time for link
-        time.sleep(12)
-        
-
-    #check for link. Try 60 times looking for 5 seconds worth of consecutive link
-    if success:
-        successful_links = 0
-        number_attempts = 0
-        max_attempts = 60
-        successful_links_needed = 3
-        p100set("/api/results/statusleds/reset")
-        time.sleep(1)
-        while number_attempts < max_attempts and successful_links < successful_links_needed:
-            number_attempts += 1
-            print(f"Attempt: {number_attempts}/{max_attempts}   Successful links: {successful_links}", end="\r")
-            led1_response = p100get(f"/api/results/statusleds?LedNames=ethLink_0&")
-            led2_response = p100get(f"/api/results/statusleds?LedNames=ethLink_1&")
-            if led1_response[0]['State'] == "Link" and led2_response[0]['State'] == "Link":
-                successful_links += 1
-            else:
-                if successful_links > 0:
-                    successful_links = 0
-                    print_information(f"{interface.full_interface_name} appears to have lost link while checking for {successful_links_needed} consecutive link queries")
-
-            time.sleep(2)
-
-            # we are one short of a complete successful link but about to stop due to max tries limit being reached so decrement number_attempts by one to give ourselves
-            # one last chance to link
-            if successful_links == successful_links_needed - 1 and number_attempts == max_attempts - 1:
-                number_attempts -= 1
-
-        if number_attempts == max_attempts:
-            print_fail(f"Failed to establish a link for interface {interface.full_interface_name}. Tried {max_attempts} times. ")
+    #set socket
+    socket_select = get_socket_select_socket(interface)
+    if socket_select == None:
+        print_fail(f"Failed to get the correct socket response")
+        success = False
+    else:
+        response = session.put(f"/api/physical/port/ethernet/{port}/socketselect?Socket={socket_select}")
+        if not response == None and 'Error' in response:
+            print_fail(f"Failed to select the correct socket. ", response.json())
             success = False
         
-        #If we are out of the while loop and number_attempts is not equal to 60 then successful_link_tries MUST be 5
+    
+    
+    # set the correct interface now. also set linerate if it is not the default linerate. 
+    # fec and flexe only appear in non default linerates so far so can handle them here
+    if success and not 'Cxp' in interface.full_interface_name:
+        endpoint = f"/api/physical/port/ethernet/{port}/{interface.interface_type}"
+        if not interface.default_linerate:
+            endpoint += f"?LineRate={interface.linerate}"
+            if interface.fec_possible:
+                endpoint += f"&Fec={interface.fec_enabled}"
+            if interface.flexe_possible:
+                endpoint += f"&FlexE={interface.flexe_enabled}"
+            #print(f"/api/physical/port/ethernet/{port}/{interface.interface_type}?LineRate={interface.linerate}&FlexE={interface.FlexEEnabled}&Fec={interface.FecEnabled}")
+        response = session.put(endpoint)
+        if not response == None and 'Error' in response:
+            print_fail(f"Failed to set up the specific interface. ",response.json())
+            success = False
 
+    #Check interface has been selected
+    response = session.get_response(f"/api/physical/port/ethernet/{port}/{interface.interface_type}")
+    
+    if not response["Selected"]:
+        print_fail(f"Selected interface check shows that {interface.interface_type} has not been selected")
+        success = False
+    if not interface.default_linerate:
+        if interface.fec_possible:
+            if not response["Fec"] == interface.fec_enabled:
+                print_fail(f"Fec check failed for {interface.interface_type}, expected {interface.fec_enabled} but got {response['Fec']}")
+                success = False
+        if interface.flexe_possible:
+            if not response["FlexE"] == interface.flexe_enabled:
+                print_fail(f"FlexE check failed for {interface.interface_type}, expected {interface.flexe_enabled} but got {response['FlexE']}")
+                success = False
+    
+    # allow time for link
+    time.sleep(30) if runtime_parameters.isPam4 else time.sleep(15)
+        
 
-    return success
     
 
-def get_instrument_details():
-    p100set("/api/instrument/reset/default")
+def check_link(session : Session, interface : Interface) -> bool:
+    success = True
+    #check for link. Try 60 times looking for 5 seconds worth of consecutive link
+    
+    successful_links = 0
+    number_attempts = 0
+    max_attempts = 60
+    successful_links_needed = 3
+    session.put("/api/results/statusleds/reset")
+    time.sleep(1)
+    #FIXME led_response below is givng a json error and returning None so skip for now during concept
+    '''
+    while number_attempts < max_attempts and successful_links < successful_links_needed:
+        number_attempts += 1
+        print(f"Attempt: {number_attempts}/{max_attempts}   Successful links: {successful_links}", end="\r")
+        led1_response = session.get_response(f"/api/results/statusleds?LedNames=ethLink_0&")
+        led2_response = session.get_response(f"/api/results/statusleds?LedNames=ethLink_1&")
+
+        if led1_response[0]['State'] == "Link" and led2_response[0]['State'] == "Link":
+            successful_links += 1
+        else:
+            if successful_links > 0:
+                successful_links = 0
+                print_information(f"{interface.full_interface_name} appears to have lost link while checking for {successful_links_needed} consecutive link queries")
+        
+        time.sleep(1)
+
+        # we are one short of a complete successful link but about to stop due to max tries limit being reached so decrement number_attempts by one to give ourselves
+        # one last chance to link
+        if successful_links == successful_links_needed - 1 and number_attempts == max_attempts - 1:
+            number_attempts -= 1
+
+    if number_attempts == max_attempts:
+        print_fail(f"Failed to establish a link for interface {interface.full_interface_name}. Tried {max_attempts} times. ")
+        success = False
+    '''
+    #If we are out of the while loop and number_attempts is not equal to 60 then successful_link_tries MUST be 3
+    return success
+
+def get_instrument_details(session : Session) -> None:
+    session.put("/api/instrument/reset/default")
     print_information(f"IP Address: {runtime_parameters.unit_ip}")
-    print_information(f"Unit time: {p100get('/api/instrument/systemtime')}")
-    unit_info = p100get("/api/instrument/information")
-    print_information(unit_info)
+    print_information(f"Unit time: {session.get_response('/api/instrument/systemtime')}")
+    unit_info = session.get_response("/api/instrument/information")
+    
     runtime_parameters.isPam4 = True if 'PAM4' in unit_info['HwCapabilities'] else False
-    print_information(f"Firmware version: {p100get('/api/factory/versions')['FirmwareVersion']}")
-    build_version = p100get('/api/instrument/software/buildversion')['BuildVersion']
+    print_information(f"Firmware version: {session.get_value('/api/factory/versions','FirmwareVersion')}")
+    build_version = session.get_value('/api/instrument/software/buildversion','BuildVersion')
     print_information(f"Build version: {build_version}")
     runtime_parameters.build_version = build_version
-    print_information(f"OS version: {p100get('/api/instrument/software/osversion')['OsVersion']}")
-    options = p100get('/api/instrument/options/state')
+    print_information(f"OS version: {session.get_value('/api/instrument/software/osversion','OsVersion')}")
+    options = session.get_response('/api/instrument/options/state')
     runtime_parameters.instrument_options = options
-    print_information(f"CAT Version: {p100get('/api/cat/general/status')['VersionNumber']}")
-    print_information(f"PFV Version: {p100get('/api/pfv/general/status')['VersionNumber']}")
+    print_information(f"CAT Version: {session.get_value('/api/cat/general/status' ,'VersionNumber')}")
+    print_information(f"PFV Version: {session.get_value('/api/pfv/general/status','VersionNumber')}")
     authenticate_smb()
 
-def get_interfaces_on_unit():
+def get_interfaces_on_unit(session : Session) -> list:
     interfaces_available_for_test = []
-    unit_interface_info = p100get(f"/api/physical/port/ethernet/group/P1P2")
+    unit_interface_info = session.get_response(f"/api/physical/port/ethernet/group/P1P2")
     all_interfaces_on_unit = unit_interface_info['Port1']['Interfaces']
     pam4_interfaces = ['QsfpDD','Qsfp56', 'Sfp56']
     
@@ -212,24 +239,25 @@ def get_interfaces_on_unit():
 
     return interfaces_available_for_test
 
-def get_instrument_details_and_interfaces():
-    #start  off by getting the instrument details and write to the console/file
-    #TODO still need to write output to a file
-    get_instrument_details()
-    
-    # Now get the interfaces on the instrument
-    interfaces_on_unit = get_interfaces_on_unit()
 
-    
-    return interfaces_on_unit
 
-def reset_ptp():
-    return
-    p100set("/api/results/statusleds/reset")
-    p100set("/api/instrument/reset/default")
+
+
+def reset_ptp(session : Session) -> bool:
+    session.put("/api/results/statusleds/reset")
+    session.put("/api/instrument/reset/default")
     time.sleep(2)
-    p100set("/api/instrument/preset?Name=PTP 1588")
-    time.sleep(1)
+    return select_preset(session,"PTP 1588")
+
+
+def select_preset(session : Session, preset : str) -> bool:
+    session.put(f"/api/instrument/preset?Name={preset}")
+    current_preset = session.get_value("/api/instrument/preset", "Value")
+    if not current_preset == preset:
+        print_fail(f"Failed to select {preset}, it is currently {current_preset}")
+        return False
+    else:
+        return True 
 
 
 def authenticate_smb():
@@ -239,10 +267,12 @@ def authenticate_smb():
     print_information("Authenticating SMB...")
     os.system(f"net use \\\\{runtime_parameters.unit_ip}\Calnex100G /user:calnex_user calnex_acc355!")
 
-def apply_mask_and_create_interfaces(mask,hardware_type):
+def apply_mask_and_create_interfaces(session : Session, mask : str ,hardware_type : str) -> list:
+    #import the parameters file to get the desired interfaces
     module = importlib.import_module(f"Parameters.Interfaces_Mask")
-    interfaces_on_unit = get_instrument_details_and_interfaces()
     
+    interfaces_on_unit = get_interfaces_on_unit(session)
+
     mask_func = getattr(module,mask)
     
     interfaces_in_mask = mask_func()
@@ -260,8 +290,6 @@ def apply_mask_and_create_interfaces(mask,hardware_type):
         interface_func = getattr(interface_info, interface_str.lower())
         interface_obj = Interface(interface_func(),hardware_type)
 
-        interface_obj.FecEnabled = True if 'fec' in interface_str else False
-        interface_obj.FlexEEnabled = True if 'flexe' in interface_str else False
         
         interfaces_to_test.append(interface_obj)
 
@@ -302,160 +330,62 @@ def set_check_single_value(api_path,key,value):
     else:
         return False
 
+def check_cat_results(session : Session, interface : Interface):
+    pass
+
+def check_cat_result_for_metric(session : Session, interface : Interface, delay_mech : str, name : str, port : str, metric_type : str, extId :str, statistics_id : str):
+    success = False
+    value = float(session.get_value(f"/api/cat/measurement/{name}/{port}/{metric_type}/{extId}/statistics/{statistics_id}", "StatisticsValue"))
+    
+    if delay_mech == "end_to_end":
+        min_limit = interface.t1_min if name == "Sync" else interface.t4_min
+        max_limit = interface.t1_max if name == "sync" else interface.t4_max        # should be capital S but leaving lowercase as it shows both pass and fail for demonstration
+
+        if value >= min_limit and value <= max_limit:
+            success = True
+            print_pass(f"{name} {statistics_id} was within limits")
+        else:
+            print_fail(f"{name} {statistics_id} was outwith limits. Value was {value}, limits are min: {min_limit} and max {max_limit}")
+    return success
 
 
 
-
-
-
-
-def print_pass(message, with_newline=False):
-    dtObj = datetime.now()
-    timestamp = dtObj.strftime("[%D %H:%M:%S]")
-    if with_newline:
-        print(f"\n{timestamp}",'\u2705 ', message) 
+def set_ethernet_cable_compensation(session : Session, interface : Interface, port : str = "Port1") -> bool :
+    cable_delay = runtime_parameters.cable_compensation[interface.interface_type]
+    session.put(f"/api/mse/dutethernetcabledelay?Port={port}&EthernetCableDelay={cable_delay}")
+    delay = session.get_value(f"/api/mse/dutethernetcabledelay", "EthernetCableDelay")
+    if not delay == cable_delay:
+        print_fail(f"Failed to set the {port} cable delay for {interface.interface_type}. Expected {cable_delay} but got {delay}") 
+        return False
     else:
-        print(timestamp,'\u2705 ', message) 
-    runtime_parameters.passes = runtime_parameters.passes + 1
+        return True
 
-    try:
-        with open(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}_.txt", 'a') as file:
-            file.write(f"{timestamp} [Pass]  {message}\n")
-    except Exception as e:
-        pass
+def set_clock_reference(session : Session, use_parameter_file = True, reference = None) -> bool:
+    success = True
 
-    write_to_results_xml(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}.xml", timestamp, "Pass", message)
+    if use_parameter_file:
+        reference = runtime_parameters.clock_reference.lower()
+        if reference == "internal":
+            session.put(f"/api/physical/references/in/clock/internal/select")
+            ret_val = session.get_value(f"/api/physical/references/in/clock/internal", "Selected")
+            if not ret_val:
+                print_fail("Failed to select internal clock reference")
+                success = False
+        elif reference == "bnc" or reference == "external":
+            session.put(f"/api/physical/references/in/clock/bnc/select")
+            session.put(f"/api/physical/references/in/clock/bnc?Signal={runtime_parameters.clock_ref}")
+            val =session.get_value(f"/api/physical/references/in/clock/bnc", "Signal['Value']")
+            print(val)
 
-def print_fail(message, *kwargs,with_newline=False):
-    dtObj = datetime.now()
-    timestamp = dtObj.strftime("[%D %H:%M:%S]")
-    if with_newline:
-        print(f"\n{timestamp}",'\u274c ', message,*kwargs) 
-    else:
-        print(timestamp,'\u274c ', message,*kwargs)
-    
-    runtime_parameters.fails = runtime_parameters.fails + 1
 
-    try:
-        with open(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}_.txt", 'a') as file:
-            file.write(f"{timestamp} [Fail]  {message}\n")
-    except Exception as e:
-        pass
-    write_to_results_xml(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}.xml", timestamp, "Fail", message)
+def set_ptp_profile(session : Session, profile : str) -> bool:
+    session.put(f"/api/app/mse/ptpprofile?PtpProfile={profile}")
+    returned_profile = session.get_value(f"/api/app/mse/ptpprofile", "PtpProfile")
+    if not returned_profile == profile:
+        print_fail(f"Failed to set {profile}, it is still {returned_profile}") 
+    return profile == returned_profile
 
-def print_information(message,with_newline=False):
-    dtObj = datetime.now()
-    timestamp = dtObj.strftime("[%D %H:%M:%S]")
-    if with_newline:
-        print(f"\n{timestamp}",'\u2139 ', message) 
-    else:
-        print(timestamp,'\u2139 ', message) 
-    try:
-        runtime_parameters.infos = runtime_parameters.infos + 1
-    except: pass
 
-    try:
-        with open(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}_.txt", 'a') as file:
-            file.write(f"{timestamp} [Information]  {message}\n")
-    except Exception as e:
-        pass
-    write_to_results_xml(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}.xml", timestamp, "Information", message)
-
-import xml.etree.cElementTree as ET
-def write_to_results_xml(file_path,timestamp,msg,message):
-    #maybe better with a path.exists check rather than try_except
-    ignore = ["__builtins__","__cached__","__file__","__loader__","__name__","__package__","__spec__", "__doc__"]
-    try:
-        tree = ET.parse(file_path)
-        root = tree.getroot()
-        params = tree.find("Parameters")
-        execution_messages = tree.find("ExecutionMessages")
-        
-    except Exception as e:
-        root = ET.Element("Test", Name=f"{runtime_parameters.test_name}", StartTime=time.strftime('[%D %H:%M:%S]',time.gmtime(runtime_parameters.test_start_time)), Result="NA")
-        params = ET.SubElement(root,"Parameters")
-        execution_messages = ET.SubElement(root,"ExecutionMessages")
-        
-        #[ET.SubElement(params, "Param", Param=p, Value=getattr(runtime_parameters,p)) for p in dir(runtime_parameters)]        
-        for p in dir(runtime_parameters):
-            if p in ignore:
-                continue
-            value = getattr(runtime_parameters,p)
-            if isinstance(value,dict):
-                parent = ET.SubElement(params, "Param", type="dict", Name=p)                
-                for key in value:
-                    ET.SubElement(parent, "ParamAttr",Key=key, Value=str(value[key]))
-            elif isinstance(value,list):
-                parent = ET.SubElement(params, "Param", type="list", Name=p)    
-                for item in value:
-                    ET.SubElement(parent,"ParamItem", Item=item)
-            else:
-                if not p == None and not value == None:  ET.SubElement(params, "Param", Type="str", Name=p, Value=str(value))
-            
-    #Update pass/fail/info parameters
-    infos = params.find("./Param[@Name='infos']")
-    passes = params.find("./Param[@Name='passes']")
-    fails = params.find("./Param[@Name='fails']")
-
-    if int(fails.attrib['Value']) > 1:
-        root.set("Result", "Failed") 
-    elif int(fails.attrib['Value']) == 1 and int(passes.attrib['Value']) > 0:
-        root.set("Result","Passed")
-    else:
-        root.set("Result", "Indetermined")
-
-    infos.attrib['Value'] = str(runtime_parameters.infos)
-    passes.attrib['Value'] = str(runtime_parameters.passes)
-    fails.attrib['Value'] = str(runtime_parameters.total_fails)
-
-    
-
-    #check for any new parameters and add to xml
-    for p in dir(runtime_parameters):
-        if p in ignore:
-            continue
-        if params.find(f"./Param[@Name='{p}']") == None:
-            value = getattr(runtime_parameters,p)
-            if isinstance(value,dict):
-                parent = ET.SubElement(params, "Param", type="dict", Name=p)                
-                for key in value:
-                    ET.SubElement(parent, "ParamAttr",Key=key, Value=str(value[key]))
-            elif isinstance(value,list):
-                list_parent = ET.SubElement(params, "Param", type="list", Name=p)    
-                for item in value:
-                    ET.SubElement(list_parent,"ParamItem", Item=item)
-            else:
-                if not p == None and not value == None: ET.SubElement(params, "Param", Type="str", Name=p, Value=str(value))
-        
-    #Print messages    
-    ET.SubElement(execution_messages,"Message",Type=msg, Timestamp=timestamp).text = message.__str__()
-            
-    
-    
-    
-    #create the tree and write to the xml file
-    tree = ET.ElementTree(root)
-    ET.indent(tree, space="\t", level=0)
-    tree.write(file_path)
-    #time.sleep(3)
-    
-def print_results():
-    #add any fails to total fails
-    runtime_parameters.total_fails = runtime_parameters.total_fails + runtime_parameters.fails
-    print("\n")
-    print_pass(f"Total Passes: {runtime_parameters.passes}")
-    print_information(f"Total Informations: {runtime_parameters.infos}")
-    print_fail(f"Total Fails: {runtime_parameters.total_fails}")
-    print("\n")
-    # the print_fail call in this method will increment the fail counter by 1 and so we should check here for 1 fail rather than 0 to acount for the false fail
-
-    if runtime_parameters.total_fails > 0:
-        print_fail("Overall test result is a FAIL")
-    elif runtime_parameters.total_fails == 0 and runtime_parameters.passes == 1:
-        print_information("Overall test result is INDETERMINED")
-    else:
-        print_pass("Overall test result is a PASS")
-    print("\n")
 
 def export_to_testrail(test_case_id: int, test_type : str = "interface", interface : Interface = None):
     status = "Retest"
