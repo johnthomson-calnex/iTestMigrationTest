@@ -1,5 +1,7 @@
 import time,json,requests,datetime
-
+from Utils_Library import write_to_results_xml
+import Parameters.RuntimeParameters as runtime_parameters
+from Utils_Library import print_fail
 class Command():
 
 
@@ -9,7 +11,7 @@ class Command():
         self.start = None
         self.end = None
         self.response = None
-        self.unit_ip = 'http://100g-vm2'
+        self.unit_ip = f"http://{unit_ip}"
         
 
     def execute(self):
@@ -21,7 +23,11 @@ class Command():
             response = self.p100set(self.api_endpoint)
         self.end = time.time()
         self.response = response
+        self.write_to_xml()
         return response
+
+    def write_to_xml(self):
+        write_to_results_xml(f"Logging/{runtime_parameters.test_name.split('.')[0]}_{time.strftime('%D_%Hh%Mm%Ss',time.gmtime(runtime_parameters.test_start_time)).replace('/','_')}.xml", time.gmtime(self.start), " ", message=None, command= self)
 
     def execute_return_cmd(self):
         response = self.execute()
@@ -57,8 +63,13 @@ class Command():
             return None
 
     def p100set(self,api_path, *arg):
-        requests.put("{0}{1}".format(self.unit_ip, api_path),
-        self.argsToJSON(arg), headers={'Content-Type': 'application/json'}).raise_for_status()
+        try:
+            requests.put("{0}{1}".format(self.unit_ip, api_path),
+            self.argsToJSON(arg), headers={'Content-Type': 'application/json'}).raise_for_status()
+        except Exception as e:
+            print(e)
+            print_fail(e)
+            return None
 
 
 class PUT(Command):
@@ -75,11 +86,20 @@ class Session():
         self.ip = ip
         self.commands = []
 
-    def get(self,api):
+    def get_response(self,api):
         new_get_cmd = GET(api,self.ip)
-        new_get = new_get_cmd.execute()
+        new_get_response = new_get_cmd.execute()
         self.commands.append(new_get_cmd)
-        return new_get
+        return new_get_response
+
+    def get_value(self,api, key ):
+        new_get_cmd = GET(api,self.ip)
+        new_get_response = new_get_cmd.execute()
+        self.commands.append(new_get_cmd)
+        if key not in new_get_response:
+            return f"{key} was not found in the response for {api}" 
+        else:
+            return new_get_response[key]
 
     def put(self,api):
         new_put_cmd = PUT(api,self.ip)
