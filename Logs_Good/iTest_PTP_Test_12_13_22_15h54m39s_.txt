@@ -1,0 +1,20 @@
+[12/13/22 15:54:39] [Information]  Starting test iTest_PTP_Test.py
+[12/13/22 15:54:42] [Information]  IP Address: 100g-vm9
+[12/13/22 15:54:42] [Information]  Unit time: {'SystemTime': '15:54:39', 'SystemDate': '13 Dec 2022'}
+[12/13/22 15:54:42] [Information]  Firmware version: 80.9.0.36
+[12/13/22 15:54:42] [Information]  Build version: 80.09.00.36
+[12/13/22 15:54:42] [Information]  OS version: 4.19.0.0
+[12/13/22 15:54:42] [Information]  CAT Version: 29.0.22327.1018 [R] (C)
+[12/13/22 15:54:42] [Information]  PFV Version: 29.0.22327.1018 [R] (C)
+[12/13/22 15:54:42] [Information]  Authenticating SMB...
+[12/13/22 15:54:50] [Information]  Interfaces under test ['Qsfp28_100G_fec']
+[12/13/22 15:54:54] [Information]  Setting up Qsfp28_100G_fec link...
+[12/13/22 15:55:26] [Pass]  Successfully set up Qsfp28_100G_fec
+[12/13/22 15:55:38] [Pass]  Sync Min was within limits
+[12/13/22 15:55:38] [Pass]  Sync Max was within limits
+[12/13/22 15:55:38] [Pass]  Sync Mean was within limits
+[12/13/22 15:55:38] [Fail]  DelayReq Min was outwith limits. Value was 10.0, limits are min: 7042.762 and max 7052.762
+[12/13/22 15:55:38] [Fail]  DelayReq Max was outwith limits. Value was 19.0, limits are min: 7042.762 and max 7052.762
+[12/13/22 15:55:39] [Fail]  DelayReq Mean was outwith limits. Value was 14.77, limits are min: 7042.762 and max 7052.762
+[12/13/22 15:55:39] [Fail]  Qsfp28_100G_fec FAILED 
+
