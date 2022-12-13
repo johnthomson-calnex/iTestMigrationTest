@@ -1,0 +1,292 @@
+<Test Name="iTest_PTP_Test.py" StartTime="[12/13/22 16:27:22]" Result="Indetermined">
+	<Parameters>
+		<Param Type="str" Name="MASK" Value="defaults" />
+		<Param type="dict" Name="cable_compensation">
+			<DictItem Key="QSFP28" Value="5.456" />
+			<DictItem Key="CXP" Value="5.403" />
+			<DictItem Key="SFP1G" Value="0.567" />
+		</Param>
+		<Param Type="str" Name="clock_reference" Value="internal" />
+		<Param Type="str" Name="fails" Value="0" />
+		<Param Type="str" Name="hardware_type" Value="pam4" />
+		<Param Type="str" Name="infos" Value="11" />
+		<Param Type="str" Name="interface_start_time" Value="1670948842.2537131" />
+		<Param Type="str" Name="interface_test_result" Value="True" />
+		<Param Type="str" Name="param_name" Value="Parameter File 1" />
+		<Param Type="str" Name="passes" Value="4" />
+		<Param Type="str" Name="ptp_te_check" Value="True" />
+		<Param Type="str" Name="rj45_cable_comp" Value="5.678" />
+		<Param type="dict" Name="run_id">
+			<DictItem Key="independant" Value="0" />
+			<DictItem Key="Qsfp28_100G_fec" Value="12" />
+			<DictItem Key="Qsfp28_100G" Value="2" />
+			<DictItem Key="Sfp1G" Value="3" />
+			<DictItem Key="Cxp" Value="4" />
+			<DictItem Key="Sfp28" Value="5" />
+			<DictItem Key="Sfp28_fec" Value="6" />
+		</Param>
+		<Param Type="str" Name="test_case_id" Value="12345" />
+		<Param Type="str" Name="test_description" Value="This test will mimic iTest rather than PyTest" />
+		<Param Type="str" Name="test_name" Value="iTest_PTP_Test.py" />
+		<Param Type="str" Name="test_start_time" Value="1670948842.2537131" />
+		<Param Type="str" Name="total_fails" Value="0" />
+		<Param Type="str" Name="unit_ip" Value="100g-vm9" />
+		<Param Type="str" Name="unit_name" Value="Virtual" />
+		<Param Type="str" Name="isPam4" Value="True" />
+		<Param Type="str" Name="build_version" Value="80.09.00.36" />
+		<Param type="list" Name="instrument_options">
+			<ListItem Item="{'OptId': 'NEO-1G-10G', 'OptDescription': '1/10GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-25G', 'OptDescription': '25GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-100G', 'OptDescription': '100GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PAM4-400G', 'OptDescription': 'PAM4 400GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-DCO-400G', 'OptDescription': 'DCO 400GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PAM4-200G', 'OptDescription': 'PAM4 200GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PAM4-100G', 'OptDescription': 'PAM4 100GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-DCO-100G', 'OptDescription': 'DCO 100GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PAM4-50G', 'OptDescription': 'PAM4 50GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-50G', 'OptDescription': '50GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-40G', 'OptDescription': '40GbE Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-100M', 'OptDescription': '100M Optical Interfaces', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-FLEXE-100G', 'OptDescription': 'FlexE Sync Test (100GbE)', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-FLEXE', 'OptDescription': 'FlexE Sync Test', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PFV', 'OptDescription': 'PTP Field Verifier', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PTP-G.8275.1', 'OptDescription': 'PTP Testing - G.8275.1 Phase Profile &amp; CCSA PTP Profile', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PTP-G.8275.2', 'OptDescription': 'PTP Testing - G.8275.2 PTS Profile &amp; G.8265.1 Frequency Profile', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-PTP-P2P', 'OptDescription': 'PTP Testing - Peer to Peer', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-RTE', 'OptDescription': 'PTP Testing - Relative Time Error', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SMPTE', 'OptDescription': 'PTP Testing - SMPTE Profile', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-ToD', 'OptDescription': 'Time of Day Testing - Generation and Measurement', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-Wander', 'OptDescription': 'Sync-E Wander and ESMC', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-MTIE-TDEV', 'OptDescription': 'G.8262 MTIE and TDEV Wander Generation', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-E1-T1-Wander-Meas', 'OptDescription': 'E1/T1 Wander Measurement', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-Jitter-1G-10G', 'OptDescription': 'Sync-E Jitter Testing - 1/10GbE', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-Jitter-25G', 'OptDescription': 'Sync-E Jitter Testing - 25GbE', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-Jitter-100G', 'OptDescription': 'Sync-E Jitter Testing - 100GbE', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-SyncE-Jitter-40G', 'OptDescription': 'Sync-E Jitter Testing - 40GbE', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-Background-Traffic', 'OptDescription': 'Background Traffic Generation', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-961', 'OptDescription': 'CMRI Sync OAM test', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-962', 'OptDescription': 'CMRI Sync Interop test', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-963', 'OptDescription': 'CMRI Two Masters test', 'OptState': 'Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-Jitter-Calibration', 'OptDescription': 'Paragon-neo Jitter calibration', 'OptState': 'Not Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-800', 'OptDescription': 'CSS - Calnex Support Service', 'OptState': 'Not Fitted'}" />
+			<ListItem Item="{'OptId': 'NEO-AUTH', 'OptDescription': 'Authentication', 'OptState': 'Not Fitted'}" />
+			<ListItem Item="{'OptId': 'NO-EXT-SMB', 'OptDescription': 'Disable external samba access', 'OptState': 'Not Fitted'}" />
+		</Param>
+	</Parameters>
+	<ExecutionMessages>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:22]">Starting test iTest_PTP_Test.py</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">IP Address: 100g-vm9</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">Unit time: {'SystemTime': '16:27:21', 'SystemDate': '13 Dec 2022'}</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">Firmware version: 80.9.0.36</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">Build version: 80.09.00.36</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">OS version: 4.19.0.0</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">CAT Version: 29.0.22327.1018 [R] (C)</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">PFV Version: 29.0.22327.1018 [R] (C)</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:24]">Authenticating SMB...</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:33]">Interfaces under test ['Qsfp28_100G_fec']</Message>
+		<Message Type="Information" Timestamp="[12/13/22 16:27:36]">Setting up Qsfp28_100G_fec link...</Message>
+		<Message Type="Pass" Timestamp="[12/13/22 16:28:09]">Successfully set up Qsfp28_100G_fec</Message>
+		<Message Type="Pass" Timestamp="[12/13/22 16:28:21]">Sync Min was within limits</Message>
+		<Message Type="Pass" Timestamp="[12/13/22 16:28:22]">Sync Max was within limits</Message>
+		<Message Type="Pass" Timestamp="[12/13/22 16:28:22]">Sync Mean was within limits</Message>
+		<Message Type="Fail" Timestamp="[12/13/22 16:28:22]">DelayReq Min was outwith limits. Value was 10.0, limits are min: 7042.762 and max 7052.762</Message>
+		<Message Type="Fail" Timestamp="[12/13/22 16:28:22]">DelayReq Max was outwith limits. Value was 19.0, limits are min: 7042.762 and max 7052.762</Message>
+		<Message Type="Fail" Timestamp="[12/13/22 16:28:22]">DelayReq Mean was outwith limits. Value was 14.637, limits are min: 7042.762 and max 7052.762</Message>
+		<Message Type="Fail" Timestamp="[12/13/22 16:28:22]">Qsfp28_100G_fec FAILED 
+</Message>
+	</ExecutionMessages>
+	<Commands>
+		<Command TimeStamp="[12/13/22 16:27:22]">
+			<PUT>
+				<api_endpoint>/api/instrument/reset/default</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/instrument/systemtime</api_endpoint>
+				<Response>{'SystemTime': '16:27:21', 'SystemDate': '13 Dec 2022'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/instrument/information</api_endpoint>
+				<Response>{'HwType': 'Paragon-Neo', 'SerialNumber': '12345678', 'HwCapabilities': ['JitterInterface', 'JitterMeasurementBoard', 'PAM4', 'NeoInterface'], 'TotalPhysicalMemory': 3946}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/factory/versions</api_endpoint>
+				<Response>{'FirmwareVersion': '80.9.0.36', 'EmbeddedVersion': '20221208-1522-bd79105c', 'ProbeType': 'eParagonNeoSpringbankPAM4', 'ProbeSubType': 'SPRINGBANK_JITTER', 'SerialNumber': '12345678', 'BoardInformation': [{'Name': 'ProcessorBoard', 'BoardRevision': 'HW_REV_A', 'BoardVersion': 1, 'FpgaDeviceId': 2, 'FpgaDesignId': 3, 'FpgaDesignRev': 10, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'InterfaceBoard', 'BoardRevision': 'HW_REV_A', 'BoardVersion': 2, 'FpgaDeviceId': 14, 'FpgaDesignId': 4, 'FpgaDesignRev': 10, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'Dpe1', 'BoardRevision': 'HW_REV_UNKNOWN', 'BoardVersion': 255, 'FpgaDeviceId': 255, 'FpgaDesignId': 255, 'FpgaDesignRev': 255, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'Dpe2', 'BoardRevision': 'HW_REV_UNKNOWN', 'BoardVersion': 255, 'FpgaDeviceId': 255, 'FpgaDesignId': 255, 'FpgaDesignRev': 255, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'JitterBoard', 'BoardRevision': 'HW_REV_B', 'BoardVersion': 0, 'FpgaDeviceId': 15, 'FpgaDesignId': 2, 'FpgaDesignRev': 4, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'ClkRecBoard', 'BoardRevision': 'HW_REV_A', 'BoardVersion': 2, 'FpgaDeviceId': 255, 'FpgaDesignId': 255, 'FpgaDesignRev': 255, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}, {'Name': 'DpePlus', 'BoardRevision': 'HW_REV_A', 'BoardVersion': 6, 'FpgaDeviceId': 18, 'FpgaDesignId': 1, 'FpgaDesignRev': 11, 'Fpga2DeviceId': 17, 'Fpga2DesignId': 1, 'Fpga2DesignRev': 13}, {'Name': 'Omp4', 'BoardRevision': 'HW_REV_A', 'BoardVersion': 0, 'FpgaDeviceId': 255, 'FpgaDesignId': 255, 'FpgaDesignRev': 255, 'Fpga2DeviceId': 255, 'Fpga2DesignId': 255, 'Fpga2DesignRev': 255}]}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/instrument/software/buildversion</api_endpoint>
+				<Response>{'BuildVersion': '80.09.00.36'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/instrument/software/osversion</api_endpoint>
+				<Response>{'OsVersion': '4.19.0.0'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/instrument/options/state</api_endpoint>
+				<Response>[{'OptId': 'NEO-1G-10G', 'OptDescription': '1/10GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-25G', 'OptDescription': '25GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-100G', 'OptDescription': '100GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-PAM4-400G', 'OptDescription': 'PAM4 400GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-DCO-400G', 'OptDescription': 'DCO 400GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-PAM4-200G', 'OptDescription': 'PAM4 200GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-PAM4-100G', 'OptDescription': 'PAM4 100GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-DCO-100G', 'OptDescription': 'DCO 100GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-PAM4-50G', 'OptDescription': 'PAM4 50GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-50G', 'OptDescription': '50GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-40G', 'OptDescription': '40GbE Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-100M', 'OptDescription': '100M Optical Interfaces', 'OptState': 'Fitted'}, {'OptId': 'NEO-FLEXE-100G', 'OptDescription': 'FlexE Sync Test (100GbE)', 'OptState': 'Fitted'}, {'OptId': 'NEO-FLEXE', 'OptDescription': 'FlexE Sync Test', 'OptState': 'Fitted'}, {'OptId': 'NEO-PFV', 'OptDescription': 'PTP Field Verifier', 'OptState': 'Fitted'}, {'OptId': 'NEO-PTP-G.8275.1', 'OptDescription': 'PTP Testing - G.8275.1 Phase Profile &amp; CCSA PTP Profile', 'OptState': 'Fitted'}, {'OptId': 'NEO-PTP-G.8275.2', 'OptDescription': 'PTP Testing - G.8275.2 PTS Profile &amp; G.8265.1 Frequency Profile', 'OptState': 'Fitted'}, {'OptId': 'NEO-PTP-P2P', 'OptDescription': 'PTP Testing - Peer to Peer', 'OptState': 'Fitted'}, {'OptId': 'NEO-RTE', 'OptDescription': 'PTP Testing - Relative Time Error', 'OptState': 'Fitted'}, {'OptId': 'NEO-SMPTE', 'OptDescription': 'PTP Testing - SMPTE Profile', 'OptState': 'Fitted'}, {'OptId': 'NEO-ToD', 'OptDescription': 'Time of Day Testing - Generation and Measurement', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-Wander', 'OptDescription': 'Sync-E Wander and ESMC', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-MTIE-TDEV', 'OptDescription': 'G.8262 MTIE and TDEV Wander Generation', 'OptState': 'Fitted'}, {'OptId': 'NEO-E1-T1-Wander-Meas', 'OptDescription': 'E1/T1 Wander Measurement', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-Jitter-1G-10G', 'OptDescription': 'Sync-E Jitter Testing - 1/10GbE', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-Jitter-25G', 'OptDescription': 'Sync-E Jitter Testing - 25GbE', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-Jitter-100G', 'OptDescription': 'Sync-E Jitter Testing - 100GbE', 'OptState': 'Fitted'}, {'OptId': 'NEO-SyncE-Jitter-40G', 'OptDescription': 'Sync-E Jitter Testing - 40GbE', 'OptState': 'Fitted'}, {'OptId': 'NEO-Background-Traffic', 'OptDescription': 'Background Traffic Generation', 'OptState': 'Fitted'}, {'OptId': 'NEO-961', 'OptDescription': 'CMRI Sync OAM test', 'OptState': 'Fitted'}, {'OptId': 'NEO-962', 'OptDescription': 'CMRI Sync Interop test', 'OptState': 'Fitted'}, {'OptId': 'NEO-963', 'OptDescription': 'CMRI Two Masters test', 'OptState': 'Fitted'}, {'OptId': 'NEO-Jitter-Calibration', 'OptDescription': 'Paragon-neo Jitter calibration', 'OptState': 'Not Fitted'}, {'OptId': 'NEO-800', 'OptDescription': 'CSS - Calnex Support Service', 'OptState': 'Not Fitted'}, {'OptId': 'NEO-AUTH', 'OptDescription': 'Authentication', 'OptState': 'Not Fitted'}, {'OptId': 'NO-EXT-SMB', 'OptDescription': 'Disable external samba access', 'OptState': 'Not Fitted'}]</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/cat/general/status</api_endpoint>
+				<Response>{'VersionNumber': '29.0.22327.1018 [R] (C)', 'ApplicationName': 'Calnex CAT   v29.0', 'DebugMode': False, 'IsConnectionToApiEstablished': True, 'AreMetricsCalculated': False, 'IsApiCurrentlyProcessing': False, 'GeneralApiProgressValue': 100, 'CalculateProgressValue': 100, 'InstrumentCompatibilityMode': 'Paragon100G', 'IsOpeningInProgress': False, 'IsInLiveMode': False, 'IsInStarvationMode': False, 'IsHaltedElapsedTime': False, 'XsocketServerAddress': '0.0.0.0:4503', 'ServiceServerAddress': 'http://127.0.0.1/CAT/', 'ShowDialogs': True, 'Resolution': 0, 'XAxesMode': 'ElapsedTime', 'TimeSynchronization': False, 'AnyToCalculate': False, 'CoupleMask': False, 'IsStandalone': False, 'DecimalSeparator': '.', 'ListSeparator': ',', 'MemoryAllocationZone': 'Normal', 'VmSpaceUsedMB': 0, 'SwapSpaceUsedMB': 0, 'SwapUseAllowedMB': 1500, 'ParticipateInLiveMode': True}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<GET>
+				<api_endpoint>/api/pfv/general/status</api_endpoint>
+				<Response>{'VersionNumber': '29.0.22327.1018 [R] (C)', 'ApplicationName': 'Calnex PFV   v29.0', 'DebugMode': False, 'IsConnectionToApiEstablished': True, 'AreMetricsCalculated': False, 'IsApiCurrentlyProcessing': False, 'GeneralApiProgressValue': 100, 'CalculateProgressValue': 100, 'InstrumentCompatibilityMode': 'PAT', 'IsOpeningInProgress': False, 'IsInLiveMode': False, 'IsInStarvationMode': False, 'IsHaltedElapsedTime': False, 'XsocketServerAddress': '0.0.0.0:4503', 'ServiceServerAddress': 'http://127.0.0.1/CAT/', 'ShowDialogs': True, 'Resolution': 0, 'XAxesMode': 'ElapsedTime', 'TimeSynchronization': False, 'AnyToCalculate': False, 'CoupleMask': False, 'IsStandalone': False, 'DecimalSeparator': '.', 'ListSeparator': ',', 'MemoryAllocationZone': 'Normal', 'VmSpaceUsedMB': 0, 'SwapSpaceUsedMB': 0, 'SwapUseAllowedMB': 1500, 'ParticipateInLiveMode': True}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<PUT>
+				<api_endpoint>/api/results/statusleds/reset</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:24]">
+			<PUT>
+				<api_endpoint>/api/instrument/reset/default</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:29]">
+			<PUT>
+				<api_endpoint>/api/instrument/preset?Name=PTP 1588</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:32]">
+			<GET>
+				<api_endpoint>/api/instrument/preset</api_endpoint>
+				<Response>{'Value': 'PTP 1588', 'Options': [{'Name': 'Conformance Test - G.8273.2 Standard', 'Description': 'Conformance Testing of G.8273.2 Standard.', 'InContext': True}, {'Name': 'PTP 1588', 'Description': 'Advanced PTP Analysis features.', 'InContext': True}, {'Name': 'SyncE Jitter', 'Description': 'Test Synchronous Ethernet (SyncE) Jitter at 100GbE/40GbE Jitter to ITU-T G.8262/ O.174. Jitter Generation, Jitter Tolerance.', 'InContext': True}, {'Name': 'SyncE Wander', 'Description': 'Test Synchronous Ethernet Wander at 100GbE/40GbE to ITU-T G.8262/O.174.', 'InContext': True}]}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:32]">
+			<GET>
+				<api_endpoint>/api/physical/port/ethernet/group/P1P2</api_endpoint>
+				<Response>{'Coupled': True, 'Port1': {'Selected': 'Qsfp28', 'Interfaces': {'Qsfp28': {'InterfaceType': 'QSFP28', 'Fitted': True, 'RateConformant': True, 'LineRate': '100G', 'Qsfp28LineRate': {'Value': '100G', 'Options': [{'Value': '50G_Lanes_0and1', 'Description': '50G (Lanes 0 and 1)', 'InContext': True}, {'Value': '50G_Lanes_2and3', 'Description': '50G (Lanes 2 and 3)', 'InContext': True}, {'Value': '100G', 'Description': '100G', 'InContext': True}], 'InContext': True}, 'Fec': False, 'FlexE': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '002', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': True, 'InContext': True}, 'Qsfp56': {'InterfaceType': 'QSFP56', 'Fitted': True, 'RateConformant': True, 'LineRate': '200G', 'Fec': True, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '008', 'SerialNumber': '00000001', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'QsfpDD': {'InterfaceType': 'QSFP-DD', 'Fitted': True, 'RateConformant': True, 'LineRate': '400G', 'Fec': True, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '008', 'SerialNumber': '00000001', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'QsfpPlus': {'InterfaceType': 'QSFP+', 'Fitted': True, 'RateConformant': True, 'LineRate': '40G', 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '002', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Rj45_LowRate': {'InterfaceType': 'RJ45 Low Rate', 'Fitted': True, 'RateConformant': True, 'LineRate': '100M', 'LineRates': {'Value': '100M', 'Options': [{'Value': '100M', 'Description': '100M', 'InContext': True}, {'Value': '1G', 'Description': '1G', 'InContext': True}], 'InContext': True}, 'AutoNegotiate': {'Value': True, 'InContext': True}, 'MsMode': {'Value': 'Preferred', 'Options': [{'Value': 'Force', 'Description': 'Force', 'InContext': True}, {'Value': 'Preferred', 'Description': 'Preferred', 'InContext': True}], 'InContext': False, 'Reason': 'MsMode and MsType cannot be changed when line rate is 100M'}, 'MsType': {'Value': 'Master', 'Options': [{'Value': 'Master', 'Description': 'M-PHY', 'InContext': True}, {'Value': 'Slave', 'Description': 'S-PHY', 'InContext': True}], 'InContext': False, 'Reason': 'MsMode and MsType cannot be changed when line rate is 100M'}, 'Details': {'InContext': False, 'Reason': 'Details not available for interface type'}, 'Selected': False, 'InContext': True}, 'Sfp100M': {'InterfaceType': 'SFP100M', 'Fitted': True, 'RateConformant': True, 'LineRate': '100M', 'AutoNegotiate': {'Value': False, 'InContext': False, 'Reason': 'Not supported for line rate'}, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '005', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp1G': {'InterfaceType': 'SFP1G', 'Fitted': True, 'RateConformant': True, 'LineRate': '1G', 'AutoNegotiate': {'Value': True, 'InContext': True}, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '004', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp28': {'InterfaceType': 'SFP28', 'Fitted': True, 'RateConformant': True, 'LineRate': '25G', 'Fec': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '003', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp56': {'InterfaceType': 'SFP56', 'Fitted': True, 'RateConformant': True, 'LineRate': '50G', 'Fec': True, 'FlexE': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '009', 'SerialNumber': '00000001', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'SfpPlus': {'InterfaceType': 'SFP+', 'Fitted': True, 'RateConformant': True, 'LineRate': '10G', 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '003', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': False, 'InContext': True}}}, 'Port2': {'Selected': 'Qsfp28', 'Interfaces': {'Qsfp28': {'InterfaceType': 'QSFP28', 'Fitted': True, 'RateConformant': True, 'LineRate': '100G', 'Qsfp28LineRate': {'Value': '100G', 'Options': [{'Value': '50G_Lanes_0and1', 'Description': '50G (Lanes 0 and 1)', 'InContext': True}, {'Value': '50G_Lanes_2and3', 'Description': '50G (Lanes 2 and 3)', 'InContext': True}, {'Value': '100G', 'Description': '100G', 'InContext': True}], 'InContext': True}, 'Fec': False, 'FlexE': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '002', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': True, 'InContext': True}, 'Qsfp56': {'InterfaceType': 'QSFP56', 'Fitted': True, 'RateConformant': True, 'LineRate': '200G', 'Fec': True, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '008', 'SerialNumber': '00000002', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'QsfpDD': {'InterfaceType': 'QSFP-DD', 'Fitted': True, 'RateConformant': True, 'LineRate': '400G', 'Fec': True, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '008', 'SerialNumber': '00000002', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'QsfpPlus': {'InterfaceType': 'QSFP+', 'Fitted': True, 'RateConformant': True, 'LineRate': '40G', 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '002', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Rj45_LowRate': {'InterfaceType': 'RJ45 Low Rate', 'Fitted': True, 'RateConformant': True, 'LineRate': '100M', 'LineRates': {'Value': '100M', 'Options': [{'Value': '100M', 'Description': '100M', 'InContext': True}, {'Value': '1G', 'Description': '1G', 'InContext': True}], 'InContext': True}, 'AutoNegotiate': {'Value': True, 'InContext': True}, 'MsMode': {'Value': 'Preferred', 'Options': [{'Value': 'Force', 'Description': 'Force', 'InContext': True}, {'Value': 'Preferred', 'Description': 'Preferred', 'InContext': True}], 'InContext': False, 'Reason': 'MsMode and MsType cannot be changed when line rate is 100M'}, 'MsType': {'Value': 'Master', 'Options': [{'Value': 'Master', 'Description': 'M-PHY', 'InContext': True}, {'Value': 'Slave', 'Description': 'S-PHY', 'InContext': True}], 'InContext': False, 'Reason': 'MsMode and MsType cannot be changed when line rate is 100M'}, 'Details': {'InContext': False, 'Reason': 'Details not available for interface type'}, 'Selected': False, 'InContext': True}, 'Sfp100M': {'InterfaceType': 'SFP100M', 'Fitted': True, 'RateConformant': True, 'LineRate': '100M', 'AutoNegotiate': {'Value': False, 'InContext': False, 'Reason': 'Not supported for line rate'}, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '005', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp1G': {'InterfaceType': 'SFP1G', 'Fitted': True, 'RateConformant': True, 'LineRate': '1G', 'AutoNegotiate': {'Value': True, 'InContext': True}, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '004', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp28': {'InterfaceType': 'SFP28', 'Fitted': True, 'RateConformant': True, 'LineRate': '25G', 'Fec': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '003', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': False, 'InContext': True}, 'Sfp56': {'InterfaceType': 'SFP56', 'Fitted': True, 'RateConformant': True, 'LineRate': '50G', 'Fec': True, 'FlexE': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '009', 'SerialNumber': '00000002', 'ModuleType': 'PAM4', 'InContext': True}, 'Selected': False, 'InContext': True}, 'SfpPlus': {'InterfaceType': 'SFP+', 'Fitted': True, 'RateConformant': True, 'LineRate': '10G', 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '003', 'SerialNumber': '00000002', 'InContext': True}, 'Selected': False, 'InContext': True}}}, 'MRTE': {'Selected': 'None', 'Interfaces': {'Sfp100M': {'InterfaceType': 'SFP100M', 'Fitted': False, 'RateConformant': False, 'LineRate': '1G', 'AutoNegotiate': {'Value': True, 'InContext': True}, 'Details': {'InContext': False, 'Reason': 'Details only available when interface is fitted'}, 'Selected': False, 'InContext': False, 'Reason': 'SFP100M interface is not fitted for M-RTE'}}}}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:33]">
+			<PUT>
+				<api_endpoint>/api/physical/references/in/clock/internal/select</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:33]">
+			<GET>
+				<api_endpoint>/api/physical/references/in/clock/internal</api_endpoint>
+				<Response>{'Selected': True, 'InContext': True}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:33]">
+			<PUT>
+				<api_endpoint>/api/app/mse/ptpprofile?PtpProfile=Profile_G_8275_1</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:36]">
+			<GET>
+				<api_endpoint>/api/app/mse/ptpprofile</api_endpoint>
+				<Response>{'PtpProfile': 'Profile_G_8275_1', 'Options': [{'Value': 'Custom', 'Description': 'Custom Profile', 'InContext': True}, {'Value': 'Profile_1588_2008_Annex_J', 'Description': '1588-2008 (Annex J) Profile', 'InContext': True}, {'Value': 'Profile_G_8275_1', 'Description': 'G.8275.1 Phase Profile', 'InContext': True}, {'Value': 'Profile_G_8275_2', 'Description': 'G.8275.2 Phase Profile for PTS', 'InContext': True}, {'Value': 'Profile_G_8265_1', 'Description': 'G.8265.1 Frequency Profile', 'InContext': True}, {'Value': 'Profile_CCSA', 'Description': 'CCSA Profile', 'InContext': True}, {'Value': 'Profile_CMCC_5G', 'Description': 'CMCC 5G Profile', 'InContext': True}, {'Value': 'Profile_C37_238_2011', 'Description': 'C37.238-2011 Power Profile', 'InContext': True}, {'Value': 'Profile_C37_238_2017', 'Description': 'C37.238-2017 Power Profile', 'InContext': True}, {'Value': 'Profile_802_1AS', 'Description': '802.1AS (gPTP)', 'InContext': True}, {'Value': 'Profile_802_1AS_2020', 'Description': '802.1AS 2020 (gPTP)', 'InContext': True}, {'Value': 'Profile_IEC_IEEE_61850_9_3_Utility', 'Description': '61850-9-3 Utility Profile', 'InContext': True}, {'Value': 'Profile_ST_2059_2_2015_SMPTE', 'Description': 'ST 2059-2:2015 SMPTE', 'InContext': True}, {'Value': 'Profile_AES67_SMPTE', 'Description': 'AES67+SMPTE', 'InContext': True}, {'Value': 'Profile_AES67', 'Description': 'AES67', 'InContext': True}], 'InContext': True}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:36]">
+			<PUT>
+				<api_endpoint>/api/physical/port/ethernet/group/P1P2/coupled?Coupled=True</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:37]">
+			<PUT>
+				<api_endpoint>/api/physical/port/ethernet/Port1/socketselect?Socket=QSFP28%2FQSFP%2B&amp;</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:37]">
+			<PUT>
+				<api_endpoint>/api/physical/port/ethernet/Port1/QSFP28?LineRate=100G&amp;Fec=True&amp;FlexE=False</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:27:38]">
+			<GET>
+				<api_endpoint>/api/physical/port/ethernet/Port1/QSFP28</api_endpoint>
+				<Response>{'InterfaceType': 'QSFP28', 'Fitted': True, 'RateConformant': True, 'LineRate': '100G', 'Qsfp28LineRate': {'Value': '100G', 'Options': [{'Value': '50G_Lanes_0and1', 'Description': '50G (Lanes 0 and 1)', 'InContext': True}, {'Value': '50G_Lanes_2and3', 'Description': '50G (Lanes 2 and 3)', 'InContext': True}, {'Value': '100G', 'Description': '100G', 'InContext': True}], 'InContext': True}, 'Fec': True, 'FlexE': False, 'Details': {'Reach': 'LR', 'Manufacturer': 'Calnex', 'PartNumber': '002', 'SerialNumber': '00000001', 'InContext': True}, 'Selected': True, 'InContext': True}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:08]">
+			<PUT>
+				<api_endpoint>/api/results/statusleds/reset</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:09]">
+			<PUT>
+				<api_endpoint>/api/app/mse/measurement/start</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:21]">
+			<PUT>
+				<api_endpoint>/api/app/mse/measurement/stop</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:21]">
+			<PUT>
+				<api_endpoint>/api/app/mse/master/master1/stop</api_endpoint>
+				<Response>None</Response>
+			</PUT>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:21]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/Sync/D/TIMEERROR/-/statistics/Min</api_endpoint>
+				<Response>{'StatisticsId': 'Min', 'StatisticsName': 'Min [ns]', 'StatisticsNameWithoutUnit': 'Min', 'StatisticsValue': '-7.25', 'StatisticsValueWithUnit': '-7.25 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:21]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/Sync/D/TIMEERROR/-/statistics/Max</api_endpoint>
+				<Response>{'StatisticsId': 'Max', 'StatisticsName': 'Max [ns]', 'StatisticsNameWithoutUnit': 'Max', 'StatisticsValue': '-2.5', 'StatisticsValueWithUnit': '-2.5 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:22]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/Sync/D/TIMEERROR/-/statistics/Mean</api_endpoint>
+				<Response>{'StatisticsId': 'Mean', 'StatisticsName': 'Mean [ns]', 'StatisticsNameWithoutUnit': 'Mean', 'StatisticsValue': '-4.74', 'StatisticsValueWithUnit': '-4.74 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:22]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/DelayReq/D/TIMEERROR/-/statistics/Min</api_endpoint>
+				<Response>{'StatisticsId': 'Min', 'StatisticsName': 'Min [ns]', 'StatisticsNameWithoutUnit': 'Min', 'StatisticsValue': '10', 'StatisticsValueWithUnit': '10 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:22]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/DelayReq/D/TIMEERROR/-/statistics/Max</api_endpoint>
+				<Response>{'StatisticsId': 'Max', 'StatisticsName': 'Max [ns]', 'StatisticsNameWithoutUnit': 'Max', 'StatisticsValue': '19', 'StatisticsValueWithUnit': '19 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+		<Command TimeStamp="[12/13/22 16:28:22]">
+			<GET>
+				<api_endpoint>/api/cat/measurement/DelayReq/D/TIMEERROR/-/statistics/Mean</api_endpoint>
+				<Response>{'StatisticsId': 'Mean', 'StatisticsName': 'Mean [ns]', 'StatisticsNameWithoutUnit': 'Mean', 'StatisticsValue': '14.637', 'StatisticsValueWithUnit': '14.637 ns', 'StatisticsItemType': 'Stats', 'StatisticsUnit': ' ns', 'StatisticsMessageType': 'Normal'}</Response>
+			</GET>
+		</Command>
+	</Commands>
+</Test>
