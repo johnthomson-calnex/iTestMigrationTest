@@ -16,7 +16,7 @@ try:
     #ip = os.environ["ip"]
     #ip = '100g-vm1'
     ip = sys.argv[1]
-    time.sleep(15)
+    time.sleep(60)
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_CCSA", ip)
 
     
