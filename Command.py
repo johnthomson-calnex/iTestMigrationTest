@@ -11,7 +11,7 @@ class Command():
         self.start = None
         self.end = None
         self.response = None
-        self.unit_ip = f"http://{unit_ip}"
+        self.unit_ip = unit_ip
         
 
     def execute(self):
@@ -82,9 +82,10 @@ class GET(Command):
 
 
 class Session():
-    def  __init__(self,ip):
-        self.ip = ip
+    def  __init__(self,unit_ip,is_https = False):
+        self.ip = f"http://{unit_ip}" if not is_https else f"https://{unit_ip}"
         self.commands = []
+        self.is_https = is_https
 
     def get_response(self,api):
         new_get_cmd = GET(api,self.ip)
