@@ -1,25 +1,20 @@
 pipeline {
-    agent any
-
-    environment {
-        test_to_run = 'set_ccsa.py'
-        ip = '100g-vm7'
-        test2_to_run = 'PTP/set_cmcc5g.py'
-        test3_to_run = 'set_aes67.py'
-    }
-
-    stages {
-        stage('CCSA') {
-            steps {
-                bat 'python %test_to_run%' 
-                bat 'python %test3_to_run%'
-            }
+  agent any
+  parameters { string(name: 'JSON',  description: '')
+      
+  }
+  stages {
+      stage ("Example") {
+        steps {
+         script{
+            def jsonObj = readJSON text: "${params.JSON}", returnPojo: true
+            def ip = jsonObj['ip']
+            for(String test : jsonObj['Tests']){
+                bat "python $test $ip"
+            } 
+             
         }
-        stage('CMCC5G') {
-            steps {
-                sleep 5
-                bat 'python %test2_to_run%'
-            }
-        }
-    }
+      }
+  }
+}
 }

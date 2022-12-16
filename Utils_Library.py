@@ -170,4 +170,26 @@ def print_results():
 '''
 {"ip":"100g-vm6", "Tests" :["set_ccsa.py","set_cmcc5g.py"]}
 
+
+pipeline {
+  agent any
+  parameters { string(name: 'JSON', defaultValue: '{"ip":"100g-vm6", "Tests" :["set_ccsa.py","set_cmcc5g.py"]}',  description: '')
+      
+  }
+  stages {
+      stage ("Example") {
+        steps {
+         script{
+            def jsonObj = readJSON text: "${params.JSON}", returnPojo: true
+            def ip = jsonObj['ip']
+            for(String test : jsonObj['Tests']){
+                bat "python $test $ip"
+            } 
+             
+        }
+      }
+  }
+}
+}
+
 '''
