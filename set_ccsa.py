@@ -1,6 +1,6 @@
 #https://www.github.com/johnthomson-calnex/iTestMigrationTest.git
 
-import requests,json,os,sys
+import requests,json,os,sys,time
 
 def argsToJSON(arg):
     i = iter(arg)
@@ -16,6 +16,7 @@ try:
     #ip = os.environ["ip"]
     #ip = '100g-vm1'
     ip = sys.argv[1]
+    time.sleep(15)
     p100set("/api/app/mse/ptpprofile?PtpProfile=Profile_CCSA", ip)
 
     

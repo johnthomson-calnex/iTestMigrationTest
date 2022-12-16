@@ -9,6 +9,7 @@ client = jenkins.Jenkins("http://localhost:8080", username="johnthomsonn", passw
 
 #client.build_job('Run_Single_Test', {"Test_To_Run":"PTP/set_cmcc5g.py", "ip":"100g-vm1"})
 
+client.build_job('JSON_Pipeline', {"JSON" : {"ip":"100g-vm6", "Tests" :["set_ccsa.py","set_aes67.py"]}})
 
 xml2 = """<?xml version='1.1' encoding='UTF-8'?>
     <project>
@@ -72,9 +73,9 @@ xml2 = """<?xml version='1.1' encoding='UTF-8'?>
 """
 
 #new_job = client.create_job('api', jenkins.EMPTY_CONFIG_XML)
-new_job = client.create_job('api', xml2)
+#new_job = client.create_job('api', xml2)
 
-client.build_job('api', {"Test_To_Run":"set_ccsa.py"})
+#client.build_job('api', {"Test_To_Run":"set_ccsa.py"})
 
 
 
