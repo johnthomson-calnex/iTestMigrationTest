@@ -4,6 +4,10 @@ def defaults():
     return {
         "Qsfp28_100G_fec" : True,
         "Qsfp28_100G" : True,
+        "Qsfp28_50G_Lanes0_and1" : True,
+        "QsfP28_50G_Lanes0_and1_fec" : True,
+        "Qsfp28_50G_Lanes2_and3" : True,
+        "Qsfp28_50G_Lanes2_and3_fec" : True,
         "Sfp1G" : False,
         "Cxp" : False,
         "Sfp28" : False,
