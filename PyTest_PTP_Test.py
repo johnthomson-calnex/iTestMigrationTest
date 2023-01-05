@@ -19,8 +19,8 @@ class This_Test_Parameters:
 
 #FIXME if it is parameterized then you MUST include the parameter in the function , even setup_clock_ref would need to take in interface even tho it will not be used
 #FIXME also every single test runs for each interface and so it may be difficult to have 'set up' and 'tear down' functions
-#FIXME fin the example of ptp_tests, it doesn't really make sense to have one big function with different parameters, this means that the code in that function will need 'copied' to every ptp test etc
-
+#FIXME in the example of ptp_tests, it doesn't really make sense to have one big function with different parameters, this means that the code in that function will need 'copied' to every ptp test etc
+#FIXME cannot print to the console so may be more difficult for development - you can use -s flag but still not exactly convenient (sys.stdout.write() or print())
     
 
 
@@ -29,7 +29,7 @@ class Test_Basic_PTP_Test:
 
     @pytest.fixture(scope="session",autouse=True)
     def set_up(self):
-        self.ip = "http://192.168.204.8"
+        self.ip = "http://100g-vm7"
         self.put("/api/app/mse/ptpprofile?PtpProfile=Profile_G_8265_1", self.ip)
         yield
         None
@@ -53,7 +53,8 @@ class Test_Basic_PTP_Test:
     def test_interface_for_QSFP28(self,interface):
         time.sleep(5)
         if interface == "Qsfp28_100G":
-            pytest.skip("Don't want this one" + interface)
+            pytest.skip("Don't want this one " + interface + " ")
+        sys.stdout.write("output here " + interface + " ")
         assert 'Qsfp28' in interface, "No mention of QSFP28"
 
     #  def test_interface_for_SFP1G1(self,interface):
