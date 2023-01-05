@@ -3,7 +3,7 @@
 def defaults():
     return {
         "Qsfp28_100G_fec" : True,
-        "Qsfp28_100G" : False,
+        "Qsfp28_100G" : True,
         "Sfp1G" : False,
         "Cxp" : False,
         "Sfp28" : False,
@@ -15,7 +15,7 @@ def test():
         "Qsfp28_100G_fec" : True,
         "Qsfp28_100G" : True,
         "Sfp1G" : False,
-        "Cxp" : True,
+        "Cxp" : False,
         "Sfp28" : False,
         "Sfp28_fec" : False
     }

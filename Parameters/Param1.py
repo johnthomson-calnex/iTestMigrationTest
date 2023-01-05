@@ -7,7 +7,8 @@ class Global_Parameters:
         self.hardware_type = "pam4"
         self.unit_ip = "100g-vm6"
         self.rj45_cable_comp = 5.678
-        self.ptp_te_check = True
+        self.ptp_te_check = True,
+        self.g_mask = "defaults"
         self.clock_reference = "internal"
         self.run_id = {
             "independant" : 0,
